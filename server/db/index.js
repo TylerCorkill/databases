@@ -39,7 +39,7 @@ exports.retrieve = function(res, username) {
 
 exports.makeNew = function (data, table, callback) {
   connection.query(`SELECT COUNT(*) FROM ${table}`, function(error, results, fields) {
-    if (error) throw error;
+    if (error) { throw error; }
     callback(results[0]['COUNT(*)'], data);
   });
 };
