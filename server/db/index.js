@@ -14,6 +14,7 @@ var connection = mysql.createConnection({
 
 
 exports.addUser = function(id, user) {
+
   connection.query(`INSERT INTO users (id, username) VALUES ('${id}', '${user}')`, function (error, results, fields) {
     if (error) { throw error; }
   });
@@ -33,13 +34,30 @@ exports.retrieve = function(res, username) {
   }
   connection.query(queryText, (error, results, fields) => {
     if (error) { throw error; }
-    res.end(JSON.stringify(results));
+    res.end(JSON.stringify({'results': results}));
   });
 };
 
 exports.makeNew = function (data, table, callback) {
   connection.query(`SELECT COUNT(*) FROM ${table}`, function(error, results, fields) {
     if (error) { throw error; }
-    callback(results[0]['COUNT(*)'], data);
+    callback(results[0]['COUNT(*)'] + 1, data);
   });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
